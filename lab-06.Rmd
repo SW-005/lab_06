@@ -138,8 +138,10 @@ gmean <- function(x){
 
 
 
-
-map(test_data, gmean)
+output <- vector(double, length(test_data))
+for(x in seq_along(test_data)){
+  output [x] <- gmean(test_data[x])
+}
 
 
 
@@ -150,7 +152,7 @@ map(test_data, gmean)
 ## Exercise 6
 
 ```{r}
-# replicate the for loop from Ex 4 using the map (or a similar) function
+map(test_data, gmean)
 
 ```
 
