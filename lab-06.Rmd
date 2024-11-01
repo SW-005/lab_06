@@ -27,7 +27,8 @@ diamonds <- diamonds %>% rename(
 ## Exercise 1
 
 ```{r}
-# Do some preliminary investigations & cleaning
+diamonds <- diamonds
+  filter(diamonds, x > 0)
 
 
 
@@ -40,16 +41,19 @@ diamonds <- diamonds %>% rename(
 ```{r}
 
 diamonds <- diamonds %>%
-  mutate(table_mm = table_pct * width_mm / 100)
+  mutate(table_mm = table * y / 100)
 
-# Overall table_mm arithmetic mean?
-
-
-
+diamonds %>%
+  summarise(avg_table = mean(table_mm))
 
 
 
-# table_mm arithmetic mean within each clarity category
+
+
+
+diamonds %>%
+  group_by(clarity) %>%
+  summarise(avg_table = mean(table_mm))
 
 
 
@@ -58,10 +62,11 @@ diamonds <- diamonds %>%
 
 ```
 
-_Add your comment here_
+better the clarity, smaller the table lenth
 
 ```{r}
-# calculate the arithmetic mean across all numeric variables
+diamonds %>%
+  summarise(across(depth:z, mean, .names = "avg_{.col}"))
 
 
 
@@ -71,7 +76,21 @@ _Add your comment here_
 ## Exercise 3
 
 ```{r}
-# Write gmean() command
+gmean <- function(x){
+  if( any(is.logical(x)) ){
+  warning("<ERROR MESSAGE>")
+  return(NaN)
+}
+  if( any(is.character(x)) ){
+  warning("<ERROR MESSAGE>")
+  return(NaN)
+}
+  if( any(x <= 0) ){
+  warning("<ERROR MESSAGE>")
+  return(NaN)
+}
+  exp(mean(log(x)))
+}
 
 
 
@@ -91,7 +110,7 @@ test_data <- list(
 )
 
 
-# Create for loop to test gmean() on the above examples
+map(test_data, gmean)
 
 
 ```
