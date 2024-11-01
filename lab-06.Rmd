@@ -119,13 +119,27 @@ map(test_data, gmean)
 ## Exercise 5
 
 ```{r}
-# Copy gmean() from Ex 3 and edit it to check the input
+gmean <- function(x){
+  if( any(is.logical(x)) ){
+  warning("<ERROR MESSAGE>")
+  return(NaN)
+}
+  if( any(is.character(x)) ){
+  warning("<ERROR MESSAGE>")
+  return(NaN)
+}
+  if( any(x <= 0) ){
+  warning("<ERROR MESSAGE>")
+  return(NaN)
+}
+  exp(mean(log(x)))
+}
 
 
 
 
 
-# Copy your code from Ex 4 to test your new command
+map(test_data, gmean)
 
 
 
