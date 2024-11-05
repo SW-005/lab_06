@@ -139,8 +139,8 @@ gmean <- function(x){
 
 
 output <- vector(double, length(test_data))
-for(x in seq_along(test_data)){
-  output [x] <- gmean(test_data[x])
+for(i in seq_along(test_data)){
+  test[[i]] <- gmean(test_data[[i]])
 }
 
 
